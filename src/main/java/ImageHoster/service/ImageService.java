@@ -26,4 +26,5 @@ public class ImageService {
     public List<Image> getAllImages() {
         return new ImageService().images;
     }
+
 }

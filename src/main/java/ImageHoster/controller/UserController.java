@@ -39,6 +39,29 @@ public class UserController {
         //After registration, again redirect to the registration page
 
         userService.registerUser(user);
+        return "redirect:/users/login";
+    }
+
+    //This controller method is called when the request pattern is of type 'users/login'
+    @RequestMapping("users/login")
+    public String login() {
+        //Complete this method to return the 'users/login.html'
         return "users/login";
+    }
+
+    //This controller method is called when the request pattern is of type 'users/login' and also the incoming request is of POST type
+    @RequestMapping(value = "users/login", method = RequestMethod.POST)
+    public String loginUser(User user) {
+        //Complete this method
+        //The method calls the login() method passing user as an argument
+        //If login() method returns true, successful login, direct to the method mapped with request of type '/images'
+        //If login() method returns false, unsuccessful login, redirect to the same login page
+
+        if ("upgrad".equalsIgnoreCase(user.getUsername()) && "password".equalsIgnoreCase(user.getPassword()) ) {
+            return "redirect:/images";
+        }else{
+            return "users/login";
+        }
+
     }
 }
