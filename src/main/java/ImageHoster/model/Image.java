@@ -21,10 +21,11 @@ public class Image {
 
     //Write the constructor for id, title, imageFile, and date
 
-    public Image(Integer id, String title, String imageFile, Date date){
+    public Image(Integer id, String title, String imageFile,  String description, Date date){
         this.id = id;
         this.title = title;
         this.imageFile = imageFile;
+        this.description = description;
         this.date = date;
         System.out.println(toString()  );
     }
@@ -41,6 +42,7 @@ public class Image {
     }
 
     //Write getter and setter for all the attributes
+    //Write the constructor for all the attributes of the image
 
     public Integer getId() {
         return id;

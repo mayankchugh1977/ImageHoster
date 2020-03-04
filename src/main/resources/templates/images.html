@@ -14,7 +14,12 @@
         <div>
             <img th:src="'data:image/jpeg;base64,'+${i.imageFile}"/>
         </div>
-        <h3 th:text="${i.title}">Title of image</h3>
+        <!-- <h3 th:text="${i.title}">Title of image</h3> -->
+
+<!-- Directs to the controller method with request mapping of type '/images/{title}' when you click on the title of the image to display all the details of the image-->
+        <a th:href="'/images/' + ${i.title}">
+            <h3 th:text="${i.title}">Title of image</h3>
+        </a>
         <i>Posted On: </i> <span th:text="${i.date}"></span>
     </post>
 </main>

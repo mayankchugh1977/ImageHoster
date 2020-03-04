@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
 @Controller
 public class UserController {
 
@@ -57,7 +58,9 @@ public class UserController {
         //If login() method returns true, successful login, direct to the method mapped with request of type '/images'
         //If login() method returns false, unsuccessful login, redirect to the same login page
 
-        if ("upgrad".equalsIgnoreCase(user.getUsername()) && "password".equalsIgnoreCase(user.getPassword()) ) {
+        //if ("upgrad".equalsIgnoreCase(user.getUsername()) && "password".equalsIgnoreCase(user.getPassword()) ) {
+        boolean userExists = userService.login(user);
+        if (userExists) {
             return "redirect:/images";
         }else{
             return "users/login";
