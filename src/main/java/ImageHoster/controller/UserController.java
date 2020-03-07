@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
+
 
 @Controller
 public class UserController {
@@ -53,15 +55,17 @@ public class UserController {
 
     //This controller method is called when the request pattern is of type 'users/login' and also the incoming request is of POST type
     @RequestMapping(value = "users/login", method = RequestMethod.POST)
-    public String loginUser(User user) {
+    public String loginUser(User user, HttpSession session) {
         //Complete this method
         //The method calls the login() method passing user as an argument
         //If login() method returns true, successful login, direct to the method mapped with request of type '/images'
         //If login() method returns false, unsuccessful login, redirect to the same login page
 
         //if ("upgrad".equalsIgnoreCase(user.getUsername()) && "password".equalsIgnoreCase(user.getPassword()) ) {
-        boolean userExists = userService.login(user);
-        if (userExists) {
+//        boolean userExists = userService.login(user);
+        User existingUser = userService.login(user);
+        if (existingUser != null) {
+            session.setAttribute("loggeduser",existingUser);
             return "redirect:/images";
         }else{
             return "users/login";

@@ -4,10 +4,7 @@ package ImageHoster.repository;
 import ImageHoster.model.User;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.*;
 
 //Write the annotation which is a special type of @Component annotation and describes that the class defines a data repository
 @Repository
@@ -32,6 +29,26 @@ public class UserRepository {
         }catch (Exception e){
             transaction.rollback();
         }
+        //Complete the method
+    }
+
+    //The method receives the entered username and password
+    //Creates an instance of EntityManager
+    //Executes JPQL query to fetch the user from User class where username is equal to received username and password is equal to received password
+    //Returns the fetched user
+    //Returns null in case of NoResultException
+    public User checkUser(String username, String password) {
+
+        try {
+            EntityManager em = emf.createEntityManager();
+            TypedQuery<User> typedQuery = em.createQuery("select u from User u where u.username = :username and u.password = :password", User.class);
+            typedQuery.setParameter("username",username);
+            typedQuery.setParameter("password",password);
+            return  typedQuery.getSingleResult();
+        }catch (NoResultException nre){
+            return null;
+        }
+
         //Complete the method
     }
 }
