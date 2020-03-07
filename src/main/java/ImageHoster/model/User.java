@@ -1,11 +1,38 @@
 package ImageHoster.model;
 
+import javax.persistence.*;
 
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    //Write the annotation to specify that the corresponding attribute is a primary key
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    //Write the annotation to specify that the attribute will be mapped to the column in the database.
+    //Also explicitly mention the column name as 'id'
+    @Column(name = "id")
     private Integer id;
+
+    //Write the annotation to specify that the attribute will be mapped to the column in the database.
+    //Also explicitly mention the column name as 'username'
+    @Column(name = "username")
     private String username;
+
+    //Write the annotation to specify that the attribute will be mapped to the column in the database.
+    //Also explicitly mention the column name as 'password'
+    @Column(name = "password")
     private String password;
+
+    //Write the annotation to specify the below mentioned features
+    //The 'users' table is mapped to 'user_profile' table with One:One mapping
+    //Also if a record in 'user_profile' table is deleted or updated, then all the records in 'users' table associated to that particular record in 'user_profile' table will be deleted or updated  first and then the record in the 'user_profile' table will be deleted or updated
+    //FetchType is EAGER
+
+    //Write the annotation to indicate that the name of the column in 'users' table referring the primary key in 'user_profile' table will be 'profile_id'
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "profile_id")
+    @Transient
     private UserProfile profile;
 
     //Genarate getters and setters for all the attributes

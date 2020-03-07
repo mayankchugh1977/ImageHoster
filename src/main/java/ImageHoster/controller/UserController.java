@@ -17,6 +17,9 @@ public class UserController {
     private UserService userService;
 
     //This controller method is called when the request pattern is of type 'users/registration'
+    //This method declares User type and UserProfile type object
+    //Sets the user profile with UserProfile type object
+    //Adds User type object to a model and returns 'users/registration.html' file
     @RequestMapping("users/registration")
     public String registration(Model model) {
         //Complete this method
@@ -33,14 +36,12 @@ public class UserController {
     }
 
     //This controller method is called when the request pattern is of type 'users/registration' and also the incoming request is of POST type
+    //This method calls the business logic and after the user record is persisted in the database, directs to login page
     @RequestMapping(value = "users/registration", method = RequestMethod.POST)
-    public String registerUser(User user) {
-        //Complete this method
-        //Call the business logic which currently does not store the details of the user in the database
-        //After registration, again redirect to the registration page
-
-        userService.registerUser(user);
-        return "redirect:/users/login";
+    public String registerUser(User newUser) {
+        //Complete the method
+        userService.registerUser(newUser);
+        return "users/login";
     }
 
     //This controller method is called when the request pattern is of type 'users/login'
@@ -67,4 +68,5 @@ public class UserController {
         }
 
     }
+
 }
