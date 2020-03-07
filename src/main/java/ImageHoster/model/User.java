@@ -30,9 +30,9 @@ public class User {
     //FetchType is EAGER
 
     //Write the annotation to indicate that the name of the column in 'users' table referring the primary key in 'user_profile' table will be 'profile_id'
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinColumn(name = "profile_id")
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "profile_id")
+//    @Transient
     private UserProfile profile;
 
     //Genarate getters and setters for all the attributes
