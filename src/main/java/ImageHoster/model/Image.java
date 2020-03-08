@@ -48,12 +48,13 @@ public class Image {
 
     //Write the constructor for id, title, imageFile, and date
 
-    public Image(Integer id, String title, String imageFile,  String description, Date date){
+    public Image(Integer id, String title, String imageFile,  String description, Date date, User user){
         this.id = id;
         this.title = title;
         this.imageFile = imageFile;
         this.description = description;
         this.date = date;
+        this.user = user;
         System.out.println(toString()  );
     }
 
@@ -65,6 +66,7 @@ public class Image {
                 ", imageFile='" + imageFile + '\'' +
                 ", description='" + description + '\'' +
                 ", date=" + date +
+                ", user=" + user +
                 '}';
     }
 

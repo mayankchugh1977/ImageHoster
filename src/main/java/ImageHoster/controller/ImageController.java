@@ -1,7 +1,8 @@
 package ImageHoster.controller;
 
-import ImageHoster.HardCodedImage;
+//import ImageHoster.HardCodedImage;
 import ImageHoster.model.Image;
+import ImageHoster.model.User;
 import ImageHoster.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Date;
@@ -23,8 +25,8 @@ public class ImageController {
     @Autowired
     private ImageService imageService;
 
-    @Autowired
-    private HardCodedImage hardCodedImage;
+//    @Autowired
+//    private HardCodedImage hardCodedImage;
 
     //This method displays all the images in the user home page after successful login
     @RequestMapping("images")
@@ -68,26 +70,29 @@ public class ImageController {
     //If the title of the image is 'SpiderMan', an image object is created with all the corresponding details
     //The image object is added to the model and 'images/image.html' file is returned
     @RequestMapping("/images/{title}")
-    public String showImage(@PathVariable("title") String title, Model model) {
+    public String showImage(@PathVariable("title") String title, Model model, HttpSession session) {
+        Image image = imageService.getImageByTitle(title);
+
+       /* User user = (User)session.getAttribute("loggeduser");
         Date date = new Date();
         Image image = null;
         if (title.equals("Dr. Strange")) {
-            image = new Image(1, "Dr. Strange", hardCodedImage.getDrStrange(), "Dr. Strange has a time stone", date);
+            image = new Image(1, "Dr. Strange", hardCodedImage.getDrStrange(), "Dr. Strange has a time stone", date, user);
         } else if (title.equals("SpiderMan")) {
-            image = new Image(2, "SpiderMan", hardCodedImage.getSpiderMan(), "Spider man dies in Infinity War", date);
-        }
+            image = new Image(2, "SpiderMan", hardCodedImage.getSpiderMan(), "Spider man dies in Infinity War", date, user);
+        }*/
 
         model.addAttribute("image", image);
         return "images/image";
     }
 
-    public HardCodedImage getHardCodedImage() {
-        return hardCodedImage;
-    }
-
-    public void setHardCodedImage(HardCodedImage hardCodedImage) {
-        this.hardCodedImage = hardCodedImage;
-    }
+//    public HardCodedImage getHardCodedImage() {
+//        return hardCodedImage;
+//    }
+//
+//    public void setHardCodedImage(HardCodedImage hardCodedImage) {
+//        this.hardCodedImage = hardCodedImage;
+//    }
 
     //This controller method is called when the request pattern is of type 'images/upload'
     //The method returns 'images/upload.html' file
@@ -101,12 +106,14 @@ public class ImageController {
     //After you get the imageFile, convert it to Base64 format and store it as a string
     //After storing the image, this method directs to the logged in user homepage displaying all the images
     @RequestMapping(value = "/images/upload", method = RequestMethod.POST)
-    public String createImage(@RequestParam("file") MultipartFile file, Image newImage) throws IOException {
+    public String createImage(@RequestParam("file") MultipartFile file, Image newImage , HttpSession session) throws IOException {
 
         String uploadedImageData = convertUploadedFileToBase64(file);
         newImage.setImageFile(uploadedImageData);
         newImage.setDate(new Date());
 
+        User user = (User)session.getAttribute("loggeduser");
+        newImage.setUser(user);
         imageService.uploadImage(newImage);
         //Complete the method
         //Encode the imageFile to Base64 format and set it as the imageFile attribute of the newImage
