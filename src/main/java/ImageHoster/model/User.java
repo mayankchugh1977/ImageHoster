@@ -1,6 +1,8 @@
 package ImageHoster.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -35,6 +37,15 @@ public class User {
 //    @Transient
     private UserProfile profile;
 
+    //The 'users' table is referenced by the 'images' table
+    //The table (primary key) is referenced by the 'user' field in the 'images' table
+    //cascade = CascadeType.REMOVE specifies that if a record in 'users' table is deleted, then all the records in 'images' table associated to that particular record in 'users' table will be deleted first and then the record in the 'users' table will be deleted
+    //FetchType is LAZY
+    //Write the annotation to implement the above features
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Image> images = new ArrayList<>();
+
+
     //Genarate getters and setters for all the attributes
 
 
@@ -68,6 +79,14 @@ public class User {
 
     public void setProfile(UserProfile profile) {
         this.profile = profile;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 }
 

@@ -2,6 +2,8 @@ package ImageHoster.service;
 
 import ImageHoster.HardCodedImage;
 import ImageHoster.model.Image;
+import ImageHoster.repository.ImageRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,6 +12,9 @@ import java.util.List;
 
 @Service
 public class ImageService {
+
+    @Autowired
+    private ImageRepository imageRepository;
 
     private HardCodedImage hardCodedImage = new HardCodedImage();
 
@@ -35,6 +40,8 @@ public class ImageService {
 
     //The method does not store the image in the database
     public void uploadImage(Image image) {
+        image.setDate(new Date());
+        imageRepository.uploadImage(image);
         //Simply return from this method as this method does not currently store the image in the database
         System.out.println("New image: "+image);
     }
