@@ -146,12 +146,14 @@ public class ImageController {
     public String editImageSubmit(@RequestParam("file") MultipartFile file, @RequestParam("imageId") Integer imageId, Image updatedImage, HttpSession session) throws IOException {
 
         //Complete the method
-
+        String uploadedImageData = convertUploadedFileToBase64(file);
+        updatedImage.setImageFile(uploadedImageData);
         updatedImage.setId(imageId);
+        updatedImage.setDate(new Date());
         User user = (User)session.getAttribute("loggeduser");
         updatedImage.setUser(user);
         imageService.updateImage(updatedImage);
-        return "redirect:/posts";
+        return "redirect:/images";
     }
 
     //This method converts the image to Base64 format
