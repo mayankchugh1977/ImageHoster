@@ -18,7 +18,9 @@
     <h3 th:text="${image.title}">Title of image</h3>
     <div><i>Posted On: </i> <span th:text="${image.date}"></span></div>
     <div><i>Description: </i> <span th:text="${image.description}"></span></div>
-
+    <div>
+        <a th:href="@{/editImage(imageId=${image.id})}">Edit</a>
+    </div>
 </main>
 </body>
 </html>
