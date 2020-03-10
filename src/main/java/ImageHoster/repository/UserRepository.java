@@ -24,6 +24,7 @@ public class UserRepository {
 
         try {
             transaction.begin();
+			//persist() method changes the state of the model object from transient state to persistence state
             em.persist(newUser);
             transaction.commit();
         }catch (Exception e){

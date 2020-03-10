@@ -100,5 +100,28 @@ public class ImageRepository {
         }
     }
 
+    //The method receives the Image id of the image to be deleted in the database
+    //Creates an instance of EntityManager
+    //Starts a transaction
+    //Get the image with corresponding image id from the database
+    //This changes the state of the image model from detached state to persistent state, which is very essential to use the remove() method
+    //If you use remove() method on the object which is not in persistent state, an exception is thrown
+    //The transaction is committed if it is successful
+    //The transaction is rolled back in case of unsuccessful transaction
+    public void deleteImage(Integer imageId) {
+        //Complete the method
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        try {
+            transaction.begin();
+            Image post = em.find(Image.class, imageId);
+            em.remove(post);
+            transaction.commit();
+        }catch(Exception e) {
+            transaction.rollback();
+        }
+    }
+
 
 }

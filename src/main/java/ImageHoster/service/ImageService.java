@@ -69,4 +69,7 @@ public class ImageService {
         System.out.println("New Image: "+updatedImage);
     }
 
+    public void deleteImage(Integer imageId) {
+        imageRepository.deleteImage(imageId);
+    }
 }
