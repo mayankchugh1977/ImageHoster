@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c332855e-1472-4d27-ab03-26b600a6ba8c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ImageHoster/config/JpaConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ImageHoster/config/JpaConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,6 +137,7 @@
       <workItem from="1583301687067" duration="1185000" />
       <workItem from="1583587375068" duration="30455000" />
       <workItem from="1583952723642" duration="1630000" />
+      <workItem from="1583954524112" duration="104000" />
     </task>
     <task id="LOCAL-00001" summary="Second commit after 3rd stub">
       <created>1583138329485</created>
@@ -220,7 +223,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583954229412</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Second commit after 13th stub">
+      <created>1583954586910</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1583954586910</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -245,10 +255,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="203" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1583953039428" />
-    <state x="585" y="114" key="CommitChangelistDialog2" timestamp="1583954226192">
+    <state x="585" y="114" key="CommitChangelistDialog2" timestamp="1583954583924">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="585" y="114" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1583954226192" />
+    <state x="585" y="114" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1583954583924" />
     <state width="1877" height="468" key="GridCell.Tab.0.bottom" timestamp="1583954366152">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -297,10 +307,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="356" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1583768905353" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1583954250455">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1583954594379">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1583954250455" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1583954594379" />
     <state x="656" y="343" key="com.intellij.ide.util.TipDialog" timestamp="1583952737760">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -313,22 +323,6 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1583682154222" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ImageHoster/controller/ImageController.java</url>
-          <line>76</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ImageHoster/controller/ImageController.java</url>
-          <line>184</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="masterDetails">
     <states>
