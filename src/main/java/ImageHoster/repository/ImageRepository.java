@@ -73,13 +73,14 @@ public class ImageRepository {
     public Image getImage(Integer imageId) {
         EntityManager em = emf.createEntityManager();
 
-//        TypedQuery<Post> typedQuery = em.createQuery("Select i from Image i  where i.id = :imageId", Image.class);
-//        typedQuery.setParameter("title", imageId);
-//        return typedQuery.getSingleResult();
-//    }
-
-        return em.find(Image.class, imageId);
+        TypedQuery<Image> typedQuery = em.createQuery("Select i from Image i  where i.id = :imageId", Image.class);
+        typedQuery.setParameter("imageId", imageId);
+        Image image = typedQuery.getSingleResult();
+        return image;
     }
+
+//        return em.find(Image.class, imageId);
+//    }
 
     //The method receives the Image object to be updated in the database
     //Creates an instance of EntityManager
@@ -115,8 +116,8 @@ public class ImageRepository {
 
         try {
             transaction.begin();
-            Image post = em.find(Image.class, imageId);
-            em.remove(post);
+            Image image = em.find(Image.class, imageId);
+            em.remove(image);
             transaction.commit();
         }catch(Exception e) {
             transaction.rollback();

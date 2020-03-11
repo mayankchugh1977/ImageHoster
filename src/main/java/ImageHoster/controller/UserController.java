@@ -49,7 +49,7 @@ public class UserController {
     public String registerUser(User newUser) {
         //Complete the method
         userService.registerUser(newUser);
-        return "users/login";
+        return "redirect:/users/login";
     }
 
     //This controller method is called when the request pattern is of type 'users/login'

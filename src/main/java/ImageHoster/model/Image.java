@@ -1,7 +1,9 @@
 package ImageHoster.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 //Write the annotation to specify that the corresponding class is a JPA entity
 //Write the annotation to provide more options to customize the mapping.
@@ -42,6 +44,13 @@ public class Image {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+
+    //The attribute contains a list of all the tags of an image
+    //Note that no column will be generated for this attribute in the database instead a new table will be created
+    //Since the mapping is Many to Many, a new table will be generated containing the two columns both referencing to the primary key of both the tables ('images', 'tags')
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Tag> tags = new ArrayList<>();
+
 
     public Image() {
     }
@@ -119,5 +128,13 @@ public class Image {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 }
