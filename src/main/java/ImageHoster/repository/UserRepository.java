@@ -1,12 +1,11 @@
 package ImageHoster.repository;
 
-
 import ImageHoster.model.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 
-//Write the annotation which is a special type of @Component annotation and describes that the class defines a data repository
+//The annotation is a special type of @Component annotation which describes that the class defines a data repository
 @Repository
 public class UserRepository {
     //Get an instance of EntityManagerFactory from persistence unit with name as 'imageHoster'
@@ -24,14 +23,14 @@ public class UserRepository {
 
         try {
             transaction.begin();
-			//persist() method changes the state of the model object from transient state to persistence state
+            //persist() method changes the state of the model object from transient state to persistence state
             em.persist(newUser);
             transaction.commit();
-        }catch (Exception e){
+        } catch (Exception e) {
             transaction.rollback();
         }
-        //Complete the method
     }
+
 
     //The method receives the entered username and password
     //Creates an instance of EntityManager
@@ -39,17 +38,15 @@ public class UserRepository {
     //Returns the fetched user
     //Returns null in case of NoResultException
     public User checkUser(String username, String password) {
-
         try {
             EntityManager em = emf.createEntityManager();
-            TypedQuery<User> typedQuery = em.createQuery("select u from User u where u.username = :username and u.password = :password", User.class);
-            typedQuery.setParameter("username",username);
-            typedQuery.setParameter("password",password);
-            return  typedQuery.getSingleResult();
-        }catch (NoResultException nre){
+            TypedQuery<User> typedQuery = em.createQuery("SELECT u FROM User u WHERE u.username = :username AND u.password = :password", User.class);
+            typedQuery.setParameter("username", username);
+            typedQuery.setParameter("password", password);
+
+            return typedQuery.getSingleResult();
+        } catch (NoResultException nre) {
             return null;
         }
-
-        //Complete the method
     }
 }

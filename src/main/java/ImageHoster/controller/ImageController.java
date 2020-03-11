@@ -1,6 +1,5 @@
 package ImageHoster.controller;
 
-//import ImageHoster.HardCodedImage;
 import ImageHoster.model.Image;
 import ImageHoster.model.Tag;
 import ImageHoster.model.User;
@@ -28,75 +27,31 @@ public class ImageController {
     @Autowired
     private TagService tagService;
 
-//    @Autowired
-//    private HardCodedImage hardCodedImage;
-
     //This method displays all the images in the user home page after successful login
     @RequestMapping("images")
     public String getUserImages(Model model) {
-        //Complete the method
-        //Get all the hard-coded images in the application using getAllImages() method in ImageService class and add them to the model with 'images' as the key
-
         List<Image> images = imageService.getAllImages();
-
-        model.addAttribute("images",images);
-
+        model.addAttribute("images", images);
         return "images";
     }
 
     //This method is called when the details of the specific image with corresponding title are to be displayed
     //The logic is to get the image from the databse with corresponding title. After getting the image from the database the details are shown
-    //But since the images are not stored in the database, therefore, we have hard-coded two images here
-    //If the title of the image is 'Dr. Strange', an image object is created with all the corresponding details
-    //If the title of the image is 'SpiderMan', an image object is created with all the corresponding details
-    //The image object is added to the model and 'images/image.html' file is returned
-//    @RequestMapping("/images/{title}")
-//    public String showImage(Model model){ //Receive the dynamic variable in the URL '/images/{title}' in a string variable named 'title' and the Model type object named 'model') {
-//        Date date = new Date();
-//        Image image = new Image();
-//        if (title.equals("Dr. Strange")) {
-//            image = new Image(1, "Dr. Strange",hardCodedImage.getDrStrange(),"Dr. Strange has a time stone", date);
-//        } else if (title.equals("SpiderMan")) {
-//            image = new Image(2, "SpiderMan", hardCodedImage.getSpiderMan(), "Spider man dies in Infinity War",date);
-//        }
-//
-//        model.addAttribute("images",image);
-//        return 'images/image';
-//        //Add the image in the model image the kay as 'image'
-//        //Return 'images/image.html' file
-//    }
+    //First receive the dynamic parameter in the incoming request URL in a string variable 'title' and also the Model type object
+    //Call the getImageByTitle() method in the business logic to fetch all the details of that image
+    //Add the image in the Model type object with 'image' as the key
+    //Return 'images/image.html' file
 
-    //This method is called when the details of the specific image with corresponding title are to be displayed
-    //The logic is to get the image from the databse with corresponding title. After getting the image from the database the details are shown
-    //But since the images are not stored in the database, therefore, we have hard-coded two images here
-    //If the title of the image is 'Dr. Strange', an image object is created with all the corresponding details
-    //If the title of the image is 'SpiderMan', an image object is created with all the corresponding details
-    //The image object is added to the model and 'images/image.html' file is returned
+    //Also now you need to add the tags of an image in the Model type object
+    //Here a list of tags is added in the Model type object
+    //this list is then sent to 'images/image.html' file and the tags are displayed
     @RequestMapping("/images/{title}")
-    public String showImage(@PathVariable("title") String title, Model model, HttpSession session) {
+    public String showImage(@PathVariable("title") String title, Model model) {
         Image image = imageService.getImageByTitle(title);
-
-       /* User user = (User)session.getAttribute("loggeduser");
-        Date date = new Date();
-        Image image = null;
-        if (title.equals("Dr. Strange")) {
-            image = new Image(1, "Dr. Strange", hardCodedImage.getDrStrange(), "Dr. Strange has a time stone", date, user);
-        } else if (title.equals("SpiderMan")) {
-            image = new Image(2, "SpiderMan", hardCodedImage.getSpiderMan(), "Spider man dies in Infinity War", date, user);
-        }*/
-
         model.addAttribute("image", image);
         model.addAttribute("tags",image.getTags());
         return "images/image";
     }
-
-//    public HardCodedImage getHardCodedImage() {
-//        return hardCodedImage;
-//    }
-//
-//    public void setHardCodedImage(HardCodedImage hardCodedImage) {
-//        this.hardCodedImage = hardCodedImage;
-//    }
 
     //This controller method is called when the request pattern is of type 'images/upload'
     //The method returns 'images/upload.html' file
@@ -105,29 +60,20 @@ public class ImageController {
         return "images/upload";
     }
 
-//    //This controller method is called when the request pattern is of type 'images/upload' and also the incoming request is of POST type
-//    //The method receives all the details of the image to be stored in the database, but currently we are not using database so the business logic simply retuns null and does not store anything in the database
-//    //After you get the imageFile, convert it to Base64 format and store it as a string
-//    //After storing the image, this method directs to the logged in user homepage displaying all the images
-//    @RequestMapping(value = "/images/upload", method = RequestMethod.POST)
-//    public String createImage(@RequestParam("file") MultipartFile file, Image newImage , HttpSession session) throws IOException {
-//This controller method is called when the request pattern is of type 'images/upload' and also the incoming request is of POST type
-//The method receives all the details of the image to be stored in the database, and now the image will be sent to the business logic to be persisted in the database
-//After you get the imageFile, set the user of the image by getting the logged in user from the Http Session
-//Convert the image to Base64 format and store it as a string in the 'imageFile' attribute
-//Set the date on which the image is posted
-//After storing the image, this method directs to the logged in user homepage displaying all the images
+    //This controller method is called when the request pattern is of type 'images/upload' and also the incoming request is of POST type
+    //The method receives all the details of the image to be stored in the database, and now the image will be sent to the business logic to be persisted in the database
+    //After you get the imageFile, set the user of the image by getting the logged in user from the Http Session
+    //Convert the image to Base64 format and store it as a string in the 'imageFile' attribute
+    //Set the date on which the image is posted
+    //After storing the image, this method directs to the logged in user homepage displaying all the images
 
-//Get the 'tags' request parameter using @RequestParam annotation which is just a string of all the tags
-//Store all the tags in the database and make a list of all the tags using the findOrCreateTags() method
-//set the tags attribute of the image as a list of all the tags returned by the findOrCreateTags() method
-//        @RequestMapping(value = "/images/upload", method = RequestMethod.POST)
-//        public String createImage(@RequestParam("file") MultipartFile file, @RequestParam("tags") String tags, Image newImage, HttpSession session) throws IOException {
-
+    //Get the 'tags' request parameter using @RequestParam annotation which is just a string of all the tags
+    //Store all the tags in the database and make a list of all the tags using the findOrCreateTags() method
+    //set the tags attribute of the image as a list of all the tags returned by the findOrCreateTags() method
     @RequestMapping(value = "/images/upload", method = RequestMethod.POST)
     public String createImage(@RequestParam("file") MultipartFile file, @RequestParam("tags") String tags, Image newImage, HttpSession session) throws IOException {
 
-        User user = (User)session.getAttribute("loggeduser");
+        User user = (User) session.getAttribute("loggeduser");
         newImage.setUser(user);
         String uploadedImageData = convertUploadedFileToBase64(file);
         newImage.setImageFile(uploadedImageData);
@@ -135,22 +81,16 @@ public class ImageController {
         List<Tag> imageTags = findOrCreateTags(tags);
         newImage.setTags(imageTags);
         newImage.setDate(new Date());
-
-
-
         imageService.uploadImage(newImage);
-        //Complete the method
-        //Encode the imageFile to Base64 format and set it as the imageFile attribute of the newImage
-        //Set the date attribute of newImage
-        //Call the business logic to upload an image which currently does not store the image in the database
-        //After uploading the image direct to the logged in user homepage displaying all the images
-
         return "redirect:/images";
     }
 
     //This controller method is called when the request pattern is of type 'editImage'
     //This method fetches the image with the corresponding id from the database and adds it to the model with the key as 'image'
     //The method then returns 'images/edit.html' file wherein you fill all the updated details of the image
+
+    //The method first needs to convert the list of all the tags to a string containing all the tags separated by a comma and then add this string in a Model type object
+    //This string is then displayed by 'edit.html' file as previous tags of an image
     @RequestMapping(value = "/editImage")
     public String editImage(@RequestParam("imageId") Integer imageId, Model model) {
         Image image = imageService.getImage(imageId);
@@ -169,24 +109,28 @@ public class ImageController {
     //Set the date on which the image is posted
     //Call the updateImage() method in the business logic to update the image
     //Direct to the same page showing the details of that particular updated image
-    @RequestMapping(value = "/editImage", method = RequestMethod.PUT)
-//    public String editImageSubmit(@RequestParam("file") MultipartFile file, @RequestParam("imageId") Integer imageId, Image updatedImage, HttpSession session) throws IOException {
-     public String editImageSubmit(@RequestParam("file") MultipartFile file, @RequestParam("imageId") Integer imageId,@RequestParam("tags") String tags, Image updatedImage, HttpSession session) throws IOException {
 
-        //Complete the method
+    //The method also receives tags parameter which is a string of all the tags separated by a comma using the annotation @RequestParam
+    //The method converts the string to a list of all the tags using findOrCreateTags() method and sets the tags attribute of an image as a list of all the tags
+    @RequestMapping(value = "/editImage", method = RequestMethod.PUT)
+    public String editImageSubmit(@RequestParam("file") MultipartFile file, @RequestParam("imageId") Integer imageId,@RequestParam("tags") String tags, Image updatedImage, HttpSession session) throws IOException {
+
         Image image = imageService.getImage(imageId);
         String updatedImageData = convertUploadedFileToBase64(file);
         List<Tag> imageTags = findOrCreateTags(tags);
+
         if (updatedImageData.isEmpty())
             updatedImage.setImageFile(image.getImageFile());
         else {
             updatedImage.setImageFile(updatedImageData);
         }
+
         updatedImage.setId(imageId);
         User user = (User) session.getAttribute("loggeduser");
         updatedImage.setUser(user);
         updatedImage.setTags(imageTags);
         updatedImage.setDate(new Date());
+
         imageService.updateImage(updatedImage);
         return "redirect:/images/" + updatedImage.getTitle();
     }
@@ -197,7 +141,6 @@ public class ImageController {
     //Looks for a controller method with request mapping of type '/images'
     @RequestMapping(value = "/deleteImage", method = RequestMethod.DELETE)
     public String deleteImageSubmit(@RequestParam(name = "imageId") Integer imageId) {
-        //Complete the method
         imageService.deleteImage(imageId);
         return "redirect:/images";
     }
@@ -208,23 +151,15 @@ public class ImageController {
         return Base64.getEncoder().encodeToString(file.getBytes());
     }
 
-
     //findOrCreateTags() method has been implemented, which returns the list of tags after converting the ‘tags’ string to a list of all the tags and also stores the tags in the database if they do not exist in the database. Observe the method and complete the code where required for this method.
-    //Try to get the tag from the database using getTagByName() method. If tag is returned, you just need to add that tag in a list of all the tags, and if null is returned, you need to first store that tag in the database and then the tag is added to a list
-    //createTag() method is used to store the tag in the database
+    //Try to get the tag from the database using getTagByName() method. If tag is returned, you need not to store that tag in the database, and if null is returned, you need to first store that tag in the database and then the tag is added to a list
     //After adding all tags to a list, the list is returned
-
     private List<Tag> findOrCreateTags(String tagNames) {
         StringTokenizer st = new StringTokenizer(tagNames, ",");
         List<Tag> tags = new ArrayList<Tag>();
 
         while (st.hasMoreTokens()) {
             String tagName = st.nextToken().trim();
-
-            //You need to implement the business logic and the repository to interact with the database for getTagByName() method
-            //You pass the tag name to this method and this method returns the corresponding tag from the database if exists. The method returns null if the tag does not exist in the database.
-            //This method receives the tag name and returns the Tag type object from the database if the tag with the same name exists in the database
-            //If the tag with the corresponding name does not exist in the database, it returns null
             Tag tag = tagService.getTagByName(tagName);
 
             if (tag == null) {
