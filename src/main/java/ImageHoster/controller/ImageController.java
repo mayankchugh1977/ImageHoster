@@ -95,9 +95,13 @@ public class ImageController {
     public String editImage(@RequestParam("imageId") Integer imageId, Model model) {
         Image image = imageService.getImage(imageId);
 
-        String tags = convertTagsToString(image.getTags());
-        model.addAttribute("image", image);
-        model.addAttribute("tags",tags);
+        if(image.getTags() != null && image.getTags().size() > 0) {
+            String tags = convertTagsToString(image.getTags());
+
+            model.addAttribute("tags", tags);
+        }
+
+            model.addAttribute("image", image);
         return "images/edit";
     }
 
@@ -174,13 +178,14 @@ public class ImageController {
     private String convertTagsToString(List<Tag> tags) {
         StringBuilder tagString = new StringBuilder();
 
-        for (int i = 0; i <= tags.size() - 2; i++) {
-            tagString.append(tags.get(i).getName()).append(",");
+        if(tags != null && tags.size() > 0) {
+            for (int i = 0; i <= tags.size() - 2; i++) {
+                tagString.append(tags.get(i).getName()).append(",");
+            }
+
+            Tag lastTag = tags.get(tags.size() - 1);
+            tagString.append(lastTag.getName());
         }
-
-        Tag lastTag = tags.get(tags.size() - 1);
-        tagString.append(lastTag.getName());
-
         return tagString.toString();
     }
 }
